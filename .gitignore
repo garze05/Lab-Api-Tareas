@@ -8,3 +8,4 @@ __pycache__/
 htmlcov/
 reportes/
 .env
+.DS_Store
