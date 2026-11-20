@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 on:
   push:
     branches: [main]
@@ -33,3 +33,37 @@ jobs:
           name: reporte-pruebas
           path: reportes/
           if-no-files-found: error
+  empaquetar:
+    name: Empaquetar imagen
+    needs: ci
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      imagen: ${{ steps.nombre.outputs.imagen }}
+    steps:
+    - uses: actions/checkout@v7
+    - name: Calcular nombre de la imagen
+      id: nombre
+      # GHCR exige minúsculas; ${VAR,,} las convierte en Bash.
+      run: echo "imagen=ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+    - name: Iniciar sesión en GHCR
+      env:
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: echo "$TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+    - name: Construir imagen
+      env:
+        IMAGEN: ${{ steps.nombre.outputs.imagen }}
+      run: |
+        docker build \
+        --build-arg APP_VERSION="$GITHUB_SHA" \
+        --label org.opencontainers.image.source="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
+        --label org.opencontainers.image.revision="$GITHUB_SHA" \
+        -t "$IMAGEN" .
+        docker image ls "$IMAGEN"
+    - name: Publicar imagen
+      env:
+        IMAGEN: ${{ steps.nombre.outputs.imagen }}
+      run: docker push "$IMAGEN"
