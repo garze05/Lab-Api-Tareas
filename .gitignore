@@ -8,4 +8,6 @@ __pycache__/
 htmlcov/
 reportes/
 .env
-.DS_Store
+
+# Reportes de cobertura en formato JSON
+*.json
