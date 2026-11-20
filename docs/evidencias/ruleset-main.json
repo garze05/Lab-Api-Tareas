@@ -1,0 +1,61 @@
+{
+  "id": 27171230,
+  "name": "proteger-main",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "garze05/Lab-Api-Tareas",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": [
+        "~DEFAULT_BRANCH"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "type": "pull_request",
+      "parameters": {
+        "required_approving_review_count": 0,
+        "dismiss_stale_reviews_on_push": false,
+        "required_reviewers": [],
+        "require_code_owner_review": false,
+        "require_last_push_approval": false,
+        "required_review_thread_resolution": false,
+        "require_extra_approval_for_unattributed_changes": true,
+        "allowed_merge_methods": [
+          "merge",
+          "squash",
+          "rebase"
+        ]
+      }
+    },
+    {
+      "type": "required_status_checks",
+      "parameters": {
+        "strict_required_status_checks_policy": false,
+        "do_not_enforce_on_create": false,
+        "required_status_checks": [
+          {
+            "context": "CI",
+            "integration_id": 15368
+          }
+        ]
+      }
+    }
+  ],
+  "node_id": "RRS_lACqUmVwb3NpdG9yec5WyRtNzgGemZ4",
+  "created_at": "2026-11-12T19:54:55.679-06:00",
+  "updated_at": "2026-11-12T20:47:13.493-06:00",
+  "bypass_actors": [],
+  "current_user_can_bypass": "never",
+  "_links": {
+    "self": {
+      "href": "https://api.github.com/repos/garze05/Lab-Api-Tareas/rulesets/27171230"
+    },
+    "html": {
+      "href": "https://github.com/garze05/Lab-Api-Tareas/rules/27171230"
+    }
+  }
+}
