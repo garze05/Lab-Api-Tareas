@@ -67,8 +67,8 @@ pueda comprobar.
 
 - `GET /tareas` devuelve HTTP 200 y una lista JSON en la URL desplegada.
 - La API responde HTTP 200 y `{"estado": "ok"}` al realizar la petición GET al endpoint `/health` en la URL del API desplegado.
-- La API responde la versión de la app actual junto al `APP_ENV` producción al realizar la petición get al endpoint `/version`
-- La API crea una nueva tarea de forma exitosa, con código 201 al mandar una petición POST al endpoint `/tareas` con el formato `{"titulo": "..."}`, título de menos de 120 carácteres y el encabezado `Authorization: Bearer <token>` con el `API_TOKEN` inyectado.
+- `GET /version` devuelve HTTP 200, la versión igual al SHA del artefacto desplegado y `ambiente` igual a `produccion` en producción.
+- La API crea una nueva tarea de forma exitosa, con código 201 al mandar una petición POST al endpoint `/tareas` con el formato `{"titulo": "..."}`, título de 1 a 120 caracteres después de quitar espacios de los extremos y el encabezado `Authorization: Bearer <token>` con el `API_TOKEN` inyectado.
 - La tarea creada se consulta con `GET /tareas/<id>`: HTTP 200 y los mismos campos.
 - Un `POST /tareas` sin token o con token incorrecto devuelve HTTP 401 cuando `API_TOKEN` está configurado.
 - Si falla la validación en producción, se restaura el artefacto anterior y `/health` y `/version` confirman la recuperación. Los datos en memoria no se recuperan al reiniciar.
