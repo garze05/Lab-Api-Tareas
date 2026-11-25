@@ -11,5 +11,5 @@ ARG APP_VERSION=dev
 ENV APP_VERSION=${APP_VERSION}
 RUN useradd --create-home appuser
 USER appuser
-EXPOSE 5000
+EXPOSE 8000
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--access-logfile", "-", "app:create_app()"]
