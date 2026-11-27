@@ -115,7 +115,7 @@ jobs:
         run: bash scripts/smoke.sh http://localhost:8080
 
       - name: Ver el arranque del contenedor
-        run: docker logs  
+        run: docker logs api
 
   produccion:
     name: Desplegar en producción
@@ -148,4 +148,4 @@ jobs:
         run: bash scripts/smoke.sh http://localhost:8080
 
       - name: Ver el arranque del contenedor
-        run: docker logs 
+        run: docker logs api
