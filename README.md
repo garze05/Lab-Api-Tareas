@@ -64,3 +64,9 @@ docs/           documentación del flujo de entrega
 requirements.txt       dependencias de la aplicación, con versión fija
 requirements-dev.txt   dependencias para desarrollar y probar
 ```
+## Despligue y rollback
+
+> Justificar cada línea del .dockerignore
+> cómo saber de qué commit salió una
+> imagen, cuándo conviene el rollback y cómo se lanza.
+> Tamaño de las dos imagenes
