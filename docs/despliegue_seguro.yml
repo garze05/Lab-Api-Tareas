@@ -1,0 +1,26 @@
+name: Despliegue
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  desplegar:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Construir imagen
+        run: docker build -t api-tareas:latest .
+
+      - name: Desplegar
+        env:
+          APP_ENV: ${{ vars.APP_ENV || 'staging' }}
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: |
+          test -n "$API_TOKEN" || { echo "Falta configurar API_TOKEN"; exit 1; }
+          docker run -d -p 8080:8000 -e APP_ENV -e API_TOKEN api-tareas:latest
